@@ -10,7 +10,8 @@ type DashboardNavigationProp = {
 };
 
 export const DashboardScreen = () => {
-  const { state, dispatch, pendingTasksCount, completedTasksCount } = useTasks();
+  const { state, dispatch, pendingTasksCount, completedTasksCount } =
+    useTasks();
   const navigation = useNavigation<DashboardNavigationProp>();
 
   const handleClearCompleted = () => {
@@ -48,7 +49,7 @@ export const DashboardScreen = () => {
           onPress={handleClearCompleted}
           disabled={completedTasksCount === 0}
         />
-        <View style={{ marginTop: 16 }} />
+        <View style={styles.spacer} />
         <CustomButton
           title="Gerenciar Tarefas"
           onPress={() => navigation.navigate('TaskManagement')}
@@ -84,5 +85,8 @@ const styles = StyleSheet.create({
   },
   actionsContainer: {
     paddingHorizontal: 20,
+  },
+  spacer: {
+    marginTop: 16,
   },
 });

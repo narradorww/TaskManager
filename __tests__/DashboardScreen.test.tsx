@@ -135,4 +135,4 @@ describe('DashboardScreen', () => {
       expect(getByText('Resumo das Tarefas')).toBeTruthy();
     });
   });
-}); 
+});

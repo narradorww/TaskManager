@@ -39,13 +39,16 @@ describe('CustomButton', () => {
       <CustomButton title="Test Button" onPress={mockOnPress} loading={true} />,
     );
 
-    // Verifica que o ActivityIndicator está presente e o botão está desabilitado
     expect(UNSAFE_getByType('ActivityIndicator')).toBeTruthy();
   });
 
   it('não deve chamar onPress quando disabled é true', () => {
     const { getByText } = render(
-      <CustomButton title="Test Button" onPress={mockOnPress} disabled={true} />,
+      <CustomButton
+        title="Test Button"
+        onPress={mockOnPress}
+        disabled={true}
+      />,
     );
 
     fireEvent.press(getByText('Test Button'));
@@ -62,13 +65,16 @@ describe('CustomButton', () => {
       />,
     );
 
-    // Verifica que o ActivityIndicator está presente
     expect(UNSAFE_getByType('ActivityIndicator')).toBeTruthy();
   });
 
   it('deve aplicar estilo disabled quando disabled é true', () => {
     const { getByText } = render(
-      <CustomButton title="Test Button" onPress={mockOnPress} disabled={true} />,
+      <CustomButton
+        title="Test Button"
+        onPress={mockOnPress}
+        disabled={true}
+      />,
     );
 
     const button = getByText('Test Button').parent;
@@ -86,7 +92,11 @@ describe('CustomButton', () => {
 
   it('deve renderizar texto quando não está loading', () => {
     const { getByText, queryByTestId } = render(
-      <CustomButton title="Test Button" onPress={mockOnPress} loading={false} />,
+      <CustomButton
+        title="Test Button"
+        onPress={mockOnPress}
+        loading={false}
+      />,
     );
 
     expect(getByText('Test Button')).toBeTruthy();
@@ -101,4 +111,4 @@ describe('CustomButton', () => {
     const button = getByText('Custom Title');
     expect(button.props.children).toBe('Custom Title');
   });
-}); 
+});

@@ -1,10 +1,12 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { TaskList, ITEM_HEIGHT } from '../src/features/tasks/components/molecules/TaskList';
+import {
+  TaskList,
+  ITEM_HEIGHT,
+} from '../src/features/tasks/components/molecules/TaskList';
 import { Task, TaskStatus } from '../src/types/task';
 import { TasksProvider } from '../src/features/tasks/context/TaskContext';
 
-// Mock do uuid para os testes
 jest.mock('uuid', () => ({
   v4: jest.fn(() => 'test-uuid-' + Math.random().toString(36).substr(2, 9)),
 }));
@@ -34,7 +36,7 @@ const renderWithProvider = (component: React.ReactElement) => {
 describe('TaskList', () => {
   it('deve renderizar lista vazia corretamente', () => {
     const { root } = renderWithProvider(<TaskList tasks={[]} />);
-    
+
     expect(root).toBeTruthy();
   });
 
@@ -55,4 +57,4 @@ describe('TaskList', () => {
   it('deve exportar ITEM_HEIGHT corretamente', () => {
     expect(ITEM_HEIGHT).toBe(66);
   });
-}); 
+});

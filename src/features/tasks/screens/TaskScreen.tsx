@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView, StatusBar, Text, Platform } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  StatusBar,
+  Text,
+  Platform,
+} from 'react-native';
 import { AddTaskForm } from '../components/molecules/AddTaskForm';
 import { TaskList } from '../components/molecules/TaskList';
 import { TaskActions } from '../components/molecules/TaskActions';

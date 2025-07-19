@@ -10,9 +10,7 @@ interface TaskListProps {
 }
 
 export const TaskList = ({ tasks }: TaskListProps) => {
-  const renderItem = ({ item }: { item: Task }) => (
-    <TaskItem task={item} />
-  );
+  const renderItem = ({ item }: { item: Task }) => <TaskItem task={item} />;
 
   const getItemLayout = (_: unknown, index: number) => ({
     length: ITEM_HEIGHT,
@@ -24,7 +22,7 @@ export const TaskList = ({ tasks }: TaskListProps) => {
     <FlatList
       data={tasks}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={item => item.id}
       getItemLayout={getItemLayout}
       style={styles.container}
     />

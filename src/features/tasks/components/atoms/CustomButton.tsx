@@ -1,5 +1,10 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
 
 interface CustomButtonProps {
   title: string;
@@ -8,14 +13,17 @@ interface CustomButtonProps {
   loading?: boolean;
 }
 
-
-export const CustomButton = ({ title, onPress, disabled, loading }: CustomButtonProps) => {
+export const CustomButton = ({
+  title,
+  onPress,
+  disabled,
+  loading,
+}: CustomButtonProps) => {
   return (
     <TouchableOpacity
       style={[styles.button, disabled && styles.buttonDisabled]}
       onPress={onPress}
-      disabled={disabled || loading}
-    >
+      disabled={disabled || loading}>
       {loading ? (
         <ActivityIndicator color="#fff" />
       ) : (

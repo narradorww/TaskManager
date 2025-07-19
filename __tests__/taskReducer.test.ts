@@ -1,4 +1,7 @@
-import { tasksReducer, initialState } from '../src/features/tasks/context/taskReducer';
+import {
+  tasksReducer,
+  initialState,
+} from '../src/features/tasks/context/taskReducer';
 import { TasksState, TasksAction, TaskStatus } from '../src/types/task';
 
 // Mock do uuid para os testes
@@ -69,7 +72,7 @@ describe('tasksReducer', () => {
       expect(state2.tasks[1].id).toBeDefined();
       expect(typeof state2.tasks[0].id).toBe('string');
       expect(typeof state2.tasks[1].id).toBe('string');
-      
+
       // Verifica se são IDs únicos (mock UUIDs)
       expect(state2.tasks[0].id).toMatch(/^test-uuid-/);
       expect(state2.tasks[1].id).toMatch(/^test-uuid-/);
@@ -192,7 +195,9 @@ describe('tasksReducer', () => {
       expect(newState.tasks).toHaveLength(2);
       expect(newState.tasks[0].id).toBe('1');
       expect(newState.tasks[1].id).toBe('3');
-      expect(newState.tasks.every(task => task.status === 'PENDING')).toBe(true);
+      expect(newState.tasks.every(task => task.status === 'PENDING')).toBe(
+        true,
+      );
     });
 
     it('deve manter o estado inalterado se não houver tarefas completadas', () => {
@@ -310,4 +315,4 @@ describe('tasksReducer', () => {
       expect(newState.tasks[0].status).toBe('COMPLETED');
     });
   });
-}); 
+});

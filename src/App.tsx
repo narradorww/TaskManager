@@ -1,18 +1,14 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { TasksProvider } from './features/tasks/context/TaskContext';
-import { TaskScreen } from './features/tasks/screens/TaskScreen';
+import { AppNavigator } from './navigation/AppNavigator';
 
 function App() {
   return (
     <TasksProvider>
-      <TaskScreen />
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
     </TasksProvider>
   );
 }

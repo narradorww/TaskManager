@@ -5,7 +5,10 @@ export const initialState: TasksState = {
   isLoading: true,
 };
 
-export const tasksReducer = (state: TasksState, action: TasksAction): TasksState => {
+export const tasksReducer = (
+  state: TasksState,
+  action: TasksAction,
+): TasksState => {
   switch (action.type) {
     case 'INITIALIZE_STATE':
       return {
@@ -38,7 +41,7 @@ export const tasksReducer = (state: TasksState, action: TasksAction): TasksState
         tasks: state.tasks.map(task =>
           task.id === action.payload.id
             ? { ...task, status: action.payload.status }
-            : task
+            : task,
         ),
       };
     }

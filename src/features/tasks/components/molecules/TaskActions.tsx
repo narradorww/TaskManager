@@ -6,7 +6,7 @@ export const TaskActions = () => {
   const { state, dispatch } = useTasks();
 
   const hasCompletedTasks = state.tasks.some(
-    task => task.status === 'COMPLETED'
+    task => task.status === 'COMPLETED',
   );
 
   const handleClearCompleted = () => {

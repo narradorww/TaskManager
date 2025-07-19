@@ -103,4 +103,4 @@ describe('StatusCard', () => {
     expect(getByText('Concluídas')).toBeTruthy();
     expect(getByText('8')).toBeTruthy();
   });
-}); 
+});

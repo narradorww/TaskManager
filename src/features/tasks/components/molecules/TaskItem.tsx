@@ -11,7 +11,8 @@ export const TaskItem = ({ task }: TaskItemProps) => {
   const { dispatch } = useTasks();
 
   const handleToggleStatus = () => {
-    const newStatus: TaskStatus = task.status === 'PENDING' ? 'COMPLETED' : 'PENDING';
+    const newStatus: TaskStatus =
+      task.status === 'PENDING' ? 'COMPLETED' : 'PENDING';
 
     dispatch({
       type: 'UPDATE_TASK_STATUS',
@@ -27,8 +28,7 @@ export const TaskItem = ({ task }: TaskItemProps) => {
         style={[styles.checkbox, isCompleted && styles.checkboxCompleted]}
         onPress={handleToggleStatus}
         accessibilityRole="button"
-        accessibilityLabel={`Marcar tarefa ${task.text} como ${isCompleted ? 'pendente' : 'concluída'}`}
-      >
+        accessibilityLabel={`Marcar tarefa ${task.text} como ${isCompleted ? 'pendente' : 'concluída'}`}>
         {isCompleted && <Text style={styles.checkboxText}>✓</Text>}
       </TouchableOpacity>
 

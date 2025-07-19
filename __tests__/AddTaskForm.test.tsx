@@ -3,12 +3,10 @@ import { render } from '@testing-library/react-native';
 import { AddTaskForm } from '../src/features/tasks/components/molecules/AddTaskForm';
 import { TasksProvider } from '../src/features/tasks/context/TaskContext';
 
-// Mock do uuid para os testes
 jest.mock('uuid', () => ({
   v4: jest.fn(() => 'test-uuid-' + Math.random().toString(36).substr(2, 9)),
 }));
 
-// Mock do Keyboard
 jest.mock('react-native/Libraries/Components/Keyboard/Keyboard', () => ({
   dismiss: jest.fn(),
 }));
@@ -61,4 +59,4 @@ describe('AddTaskForm', () => {
     const input = getByPlaceholderText('Adicionar uma nova tarefa...');
     expect(input.props.onChangeText).toBeDefined();
   });
-}); 
+});

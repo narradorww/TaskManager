@@ -4,7 +4,6 @@ import { TaskItem } from '../src/features/tasks/components/molecules/TaskItem';
 import { Task, TaskStatus } from '../src/types/task';
 import { TasksProvider } from '../src/features/tasks/context/TaskContext';
 
-// Mock do uuid para os testes
 jest.mock('uuid', () => ({
   v4: jest.fn(() => 'test-uuid-' + Math.random().toString(36).substr(2, 9)),
 }));
@@ -28,7 +27,7 @@ const renderWithProvider = (component: React.ReactElement) => {
 describe('TaskItem', () => {
   it('deve renderizar uma tarefa pendente corretamente', () => {
     const { getByText, queryByText } = renderWithProvider(
-      <TaskItem task={mockTask} />
+      <TaskItem task={mockTask} />,
     );
 
     expect(getByText('Teste de tarefa')).toBeTruthy();
@@ -37,7 +36,7 @@ describe('TaskItem', () => {
 
   it('deve renderizar uma tarefa completada corretamente', () => {
     const { getByText } = renderWithProvider(
-      <TaskItem task={mockCompletedTask} />
+      <TaskItem task={mockCompletedTask} />,
     );
 
     expect(getByText('Tarefa completada')).toBeTruthy();
@@ -45,46 +44,42 @@ describe('TaskItem', () => {
   });
 
   it('deve aplicar estilos corretos para tarefa pendente', () => {
-    const { getByText } = renderWithProvider(
-      <TaskItem task={mockTask} />
-    );
+    const { getByText } = renderWithProvider(<TaskItem task={mockTask} />);
 
     const textElement = getByText('Teste de tarefa');
     expect(textElement.props.style).not.toContainEqual(
-      expect.objectContaining({ textDecorationLine: 'line-through' })
+      expect.objectContaining({ textDecorationLine: 'line-through' }),
     );
   });
 
   it('deve aplicar estilos corretos para tarefa completada', () => {
     const { getByText } = renderWithProvider(
-      <TaskItem task={mockCompletedTask} />
+      <TaskItem task={mockCompletedTask} />,
     );
 
     const textElement = getByText('Tarefa completada');
     expect(textElement.props.style).toContainEqual(
-      expect.objectContaining({ textDecorationLine: 'line-through' })
+      expect.objectContaining({ textDecorationLine: 'line-through' }),
     );
   });
 
   it('deve ter acessibilidade configurada corretamente', () => {
-    const { getByRole } = renderWithProvider(
-      <TaskItem task={mockTask} />
-    );
+    const { getByRole } = renderWithProvider(<TaskItem task={mockTask} />);
 
     const checkbox = getByRole('button');
     expect(checkbox.props.accessibilityLabel).toBe(
-      'Marcar tarefa Teste de tarefa como concluída'
+      'Marcar tarefa Teste de tarefa como concluída',
     );
   });
 
   it('deve ter acessibilidade configurada para tarefa completada', () => {
     const { getByRole } = renderWithProvider(
-      <TaskItem task={mockCompletedTask} />
+      <TaskItem task={mockCompletedTask} />,
     );
 
     const checkbox = getByRole('button');
     expect(checkbox.props.accessibilityLabel).toBe(
-      'Marcar tarefa Tarefa completada como pendente'
+      'Marcar tarefa Tarefa completada como pendente',
     );
   });
-}); 
+});
