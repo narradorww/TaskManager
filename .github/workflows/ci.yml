@@ -77,7 +77,7 @@ jobs:
           java-version: '17'
       - name: Install dependencies
         run: npm ci
-      - name: Build APK/AAB for Android
+      - name: Build APK for Android
         run: |
           cd android
-          ./gradlew assembleRelease
+          ./gradlew assembleDebug
