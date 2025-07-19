@@ -8,13 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "test:e2e": "maestro test maestro/",
-    "test:e2e:flow": "maestro test maestro/task-management-flow.yaml",
-    "test:e2e:dashboard": "maestro test maestro/dashboard-screen-test.yaml",
-    "test:e2e:add-task": "maestro test maestro/add-task-test.yaml",
-    "test:e2e:simple": "maestro test maestro/simple-dashboard-test.yaml",
-    "test:e2e:basic": "maestro test maestro/basic-text-test.yaml",
-    "test:e2e:final": "maestro test maestro/final-working-test.yaml",
+    "type-check": "tsc --noEmit",
+    "test:e2e": "maestro test maestro/test.yaml",
     "prepare": "husky"
   },
   "lint-staged": {
