@@ -13,7 +13,6 @@ import { initialState, tasksReducer } from './taskReducer';
   
   const STORAGE_KEY = '@TaskManager:tasks';
   
-  // 1. Atualizamos a interface do contexto para incluir os novos contadores
   interface ITasksContext {
     state: TasksState;
     dispatch: Dispatch<TasksAction>;
@@ -26,7 +25,6 @@ import { initialState, tasksReducer } from './taskReducer';
   export const TasksProvider = ({ children }: { children: ReactNode }) => {
     const [state, dispatch] = useReducer(tasksReducer, initialState);
   
-    // Efeitos para carregar/salvar no AsyncStorage (lógica anterior)
     useEffect(() => {
       const loadTasks = async () => {
         try {
@@ -50,8 +48,6 @@ import { initialState, tasksReducer } from './taskReducer';
       }
     }, [state.tasks, state.isLoading]);
   
-    // 2. Otimização: Calculamos os contadores aqui, usando useMemo.
-    // Este cálculo só será refeito se `state.tasks` mudar.
     const pendingTasksCount = useMemo(
       () => state.tasks.filter(task => task.status === 'PENDING').length,
       [state.tasks]
@@ -61,8 +57,6 @@ import { initialState, tasksReducer } from './taskReducer';
       [state.tasks]
     );
   
-    // 3. O valor do contexto agora inclui o estado, o dispatch e os contadores.
-    // Usamos useMemo para o objeto de valor para evitar re-renderizações desnecessárias.
     const contextValue = useMemo(
       () => ({
         state,
@@ -80,7 +74,6 @@ import { initialState, tasksReducer } from './taskReducer';
     );
   };
   
-  // O hook customizado agora retorna o contexto enriquecido.
   export const useTasks = (): ITasksContext => {
     const context = useContext(TasksContext);
     if (context === undefined) {
