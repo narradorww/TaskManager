@@ -10,7 +10,7 @@ interface StatusCardProps {
 }
 
 export const StatusCard = ({ label, count, statusType }: StatusCardProps) => {
-  const chipColor = statusType === 'PENDING' ? '#007AFF' : '#28a745';
+  const chipColor = statusType === 'PENDING' ? '#007AFF' : '#FF0000';
 
   return (
     <View
