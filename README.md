@@ -250,27 +250,7 @@ npm run type-check
 
 ## 🤝 Contribuição
 
-### Padrões de Commit
-Este projeto segue o [Conventional Commits](https://www.conventionalcommits.org/):
-
-```bash
-feat: adicionar nova funcionalidade
-fix: corrigir bug
-docs: atualizar documentação
-style: formatação de código
-refactor: refatoração de código
-test: adicionar ou corrigir testes
-chore: tarefas de manutenção
-```
-
-### Fluxo de Desenvolvimento
-1. Criar branch a partir de `main`
-2. Implementar funcionalidade
-3. Adicionar testes
-4. Executar linting e testes
-5. Criar Pull Request
-6. Code review
-7. Merge após aprovação
+Para contribuir, siga as diretrizes detalhadas em [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## 📄 Licença
 
