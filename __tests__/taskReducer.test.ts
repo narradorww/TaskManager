@@ -20,6 +20,7 @@ describe('tasksReducer', () => {
             status: 'PENDING' as TaskStatus,
           },
         ],
+        isLoading: false,
       };
 
       const action: TasksAction = {
@@ -94,6 +95,7 @@ describe('tasksReducer', () => {
             status: 'PENDING' as TaskStatus,
           },
         ],
+        isLoading: false,
       };
 
       const action: TasksAction = {
@@ -116,6 +118,7 @@ describe('tasksReducer', () => {
             status: 'PENDING' as TaskStatus,
           },
         ],
+        isLoading: false,
       };
 
       const action: TasksAction = {
@@ -137,6 +140,7 @@ describe('tasksReducer', () => {
             status: 'PENDING' as TaskStatus,
           },
         ],
+        isLoading: false,
       };
 
       // Primeira transição: PENDING -> COMPLETED
@@ -184,6 +188,7 @@ describe('tasksReducer', () => {
             status: 'COMPLETED' as TaskStatus,
           },
         ],
+        isLoading: false,
       };
 
       const action: TasksAction = {
@@ -214,6 +219,7 @@ describe('tasksReducer', () => {
             status: 'PENDING' as TaskStatus,
           },
         ],
+        isLoading: false,
       };
 
       const action: TasksAction = {
@@ -239,6 +245,7 @@ describe('tasksReducer', () => {
             status: 'COMPLETED' as TaskStatus,
           },
         ],
+        isLoading: false,
       };
 
       const action: TasksAction = {
@@ -276,6 +283,7 @@ describe('tasksReducer', () => {
             status: 'PENDING' as TaskStatus,
           },
         ],
+        isLoading: false,
       };
 
       const action: TasksAction = {
@@ -300,6 +308,7 @@ describe('tasksReducer', () => {
             status: 'PENDING' as TaskStatus,
           },
         ],
+        isLoading: false,
       };
 
       const action: TasksAction = {

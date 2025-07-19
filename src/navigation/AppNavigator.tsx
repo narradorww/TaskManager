@@ -8,7 +8,6 @@ const Stack = createNativeStackNavigator();
 export const AppNavigator = () => {
   return (
     <Stack.Navigator
-      testID="app-navigator"
       initialRouteName="Dashboard"
       screenOptions={{
         headerStyle: {

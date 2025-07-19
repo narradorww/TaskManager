@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { CustomButton } from '../src/features/tasks/components/atoms/CustomButton';
+import { ActivityIndicator } from 'react-native';
 
 describe('CustomButton', () => {
   const mockOnPress = jest.fn();
@@ -31,7 +32,7 @@ describe('CustomButton', () => {
       <CustomButton title="Test Button" onPress={mockOnPress} loading={true} />,
     );
 
-    expect(UNSAFE_getByType('ActivityIndicator')).toBeTruthy();
+    expect(UNSAFE_getByType(ActivityIndicator)).toBeTruthy();
   });
 
   it('não deve chamar onPress quando loading é true', () => {
@@ -39,7 +40,7 @@ describe('CustomButton', () => {
       <CustomButton title="Test Button" onPress={mockOnPress} loading={true} />,
     );
 
-    expect(UNSAFE_getByType('ActivityIndicator')).toBeTruthy();
+    expect(UNSAFE_getByType(ActivityIndicator)).toBeTruthy();
   });
 
   it('não deve chamar onPress quando disabled é true', () => {
@@ -65,7 +66,7 @@ describe('CustomButton', () => {
       />,
     );
 
-    expect(UNSAFE_getByType('ActivityIndicator')).toBeTruthy();
+    expect(UNSAFE_getByType(ActivityIndicator)).toBeTruthy();
   });
 
   it('deve aplicar estilo disabled quando disabled é true', () => {
