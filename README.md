@@ -258,7 +258,10 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 👥 Equipe
 
-Desenvolvido com ❤️ seguindo as melhores práticas de desenvolvimento mobile.
+[Rodrigo Alexandre](mailto:rodrigo.anst@gmail.com)  
+🌐 [rodrigoalexandre.dev](https://rodrigoalexandre.dev)  
+🔗 [linkedin.com/in/rodrigoalexandre79](https://linkedin.com/in/rodrigoalexandre79)  
+📩 [rodrigo.anst@gmail.com](mailto:rodrigo.anst@gmail.com)
 
 ---
 
