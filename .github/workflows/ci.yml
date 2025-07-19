@@ -85,12 +85,38 @@ jobs:
         run: |
           ls -la android/app/build/outputs/apk/debug/
           echo "APK size: $(du -h android/app/build/outputs/apk/debug/app-debug.apk)"
+
+      - name: Checkout target repository (seo-lp-ia)
+        uses: actions/checkout@v4
+        with:
+          repository: narradorww/seo-lp-ia
+          token: ${{ secrets.TARGET_REPO_TOKEN }}
+          path: target-repo
+
       - name: Copy APK to target repository
         run: |
           mkdir -p target-repo/public/builds
           cp android/app/build/outputs/apk/debug/app-debug.apk \
              target-repo/public/builds/taskmanager-v${{ github.run_number }}.apk
           echo "APK copied as: taskmanager-v${{ github.run_number }}.apk"
+
+      - name: Commit and push APK to target repository
+        run: |
+          cd target-repo
+          git config user.name "TaskManager Build Bot"
+          git config user.email "taskmanager-bot@noreply.github.com"
+          git add public/builds/taskmanager-v${{ github.run_number }}.apk
+          git commit -m "feat: add TaskManager APK v${{ github.run_number }}
+          
+          🤖 Auto-deployed from TaskManager build #${{ github.run_number }}
+          
+          - Repository: narradorww/TaskManager
+          - Commit: ${{ github.sha }}
+          - Build: #${{ github.run_number }}
+          
+          Co-Authored-By: TaskManager CI <taskmanager-ci@noreply.github.com>"
+          git push origin main
+
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
         with:
