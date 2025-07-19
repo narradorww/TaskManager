@@ -10,11 +10,10 @@ O TaskManager é uma aplicação móvel que permite aos usuários criar, gerenci
 
 ### Por que esta configuração?
 
-A escolha das tecnologias e configurações foi baseada em requisitos específicos de qualidade, escalabilidade e experiência do desenvolvedor:
+A escolha das tecnologias e configurações foi baseada em requisitos específicos de qualidade, escalabilidade e experiência do desenvolvedor(DX):
 
 #### **React Native + TypeScript**
 - **Type Safety**: TypeScript oferece verificação de tipos em tempo de compilação, reduzindo bugs em runtime
-- **IntelliSense**: Melhor experiência de desenvolvimento com autocompletar e refatoração
 - **Manutenibilidade**: Código mais legível e auto-documentado
 - **Escalabilidade**: Facilita a manutenção em projetos grandes
 
@@ -71,33 +70,33 @@ Esta abordagem híbrida oferece:
 ```
 TaskManager/
 ├── src/
-│   ├── App.tsx                    # Ponto de entrada da aplicação
-│   ├── features/                  # 🎯 Funcionalidades (Feature-Based)
-│   │   └── tasks/                 # Domínio de Tarefas
-│   │       ├── components/        # 🧩 Componentes UI (Atomic Design)
-│   │       │   ├── atoms/         # Átomos: componentes básicos
+│   ├── App.tsx                             # Ponto de entrada da aplicação
+│   ├── features/                           # 🎯 Funcionalidades (Feature-Based)
+│   │   └── tasks/                          # Domínio de Tarefas
+│   │       ├── components/                 # 🧩 Componentes UI (Atomic Design)
+│   │       │   ├── atoms/                  # Àtomos: componentes básicos
 │   │       │   │   ├── CustomButton.tsx
 │   │       │   │   └── StatusCard.tsx
-│   │       │   └── molecules/     # Moléculas: combinações de átomos
+│   │       │   └── molecules/              # Moléculas: combinações de átomos
 │   │       │       ├── AddTaskForm.tsx
 │   │       │       ├── TaskItem.tsx
 │   │       │       ├── TaskList.tsx
 │   │       │       └── TaskActions.tsx
-│   │       ├── screens/           # 🖥️ Organismos: telas completas
+│   │       ├── screens/                    # 🖥️ Organismos: telas completas
 │   │       │   ├── DashBoardScreen.tsx
 │   │       │   └── TaskScreen.tsx
-│   │       └── context/           # 🧠 Camada de Dados (Clean Architecture)
+│   │       └── context/                    # 🧠 Camada de Dados (Clean Architecture)
 │   │           ├── TaskContext.tsx
 │   │           └── taskReducer.ts
-│   ├── navigation/                # 🧭 Navegação da aplicação
+│   ├── navigation/                         # 🧭 Navegação da aplicação
 │   │   └── AppNavigator.tsx
-│   ├── types/                     # 📝 Definições de tipos TypeScript
+│   ├── types/                              # 📝 Definições de tipos TypeScript
 │   │   └── task.ts
-│   └── core/                      # 🔧 Utilitários e configurações globais
-├── __tests__/                     # 🧪 Testes unitários
-├── maestro/                       # 🎭 Testes E2E
-├── android/                       # 🤖 Configurações Android
-├── ios/                          # 🍎 Configurações iOS
+│   └── core/                               # 🔧 Utilitários e configurações globais
+├── __tests__/                              # 🧪 Testes unitários
+├── maestro/                                # 🎭 Testes E2E
+├── android/                                # 🤖 Configurações Android
+├── ios/                                    # 🍎 Configurações iOS
 └── [configurações do projeto]
 ```
 
@@ -130,7 +129,7 @@ Organismos (Organisms)
 ### Instalação
 ```bash
 # Clonar o repositório
-git clone <repository-url>
+git clone https://github.com/narradorww/TaskManager.git
 cd TaskManager
 
 # Instalar dependências
