@@ -7,9 +7,6 @@ tags:
 ---
 - launchApp
 
-# Aguardar carregamento
-- pause: 5000
-
 # Tentar diferentes seletores para ver o que está disponível
 - runFlow:
     when:

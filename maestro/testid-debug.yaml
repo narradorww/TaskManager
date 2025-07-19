@@ -1,0 +1,74 @@
+appId: com.taskmanager
+name: TestID Debug Test
+tags:
+  - e2e
+  - debug
+  - testid
+
+---
+- launchApp
+
+# Verificar se o app carregou
+- assertVisible: "Resumo das Tarefas"
+
+# Tentar encontrar elementos por testID um por um
+- runFlow:
+    when:
+      visible: "dashboard-screen"
+    commands:
+      - assertVisible: "dashboard-screen"
+    else:
+      - assertVisible: "Resumo das Tarefas"
+
+- runFlow:
+    when:
+      visible: "dashboard-title"
+    commands:
+      - assertVisible: "dashboard-title"
+    else:
+      - assertVisible: "Resumo das Tarefas"
+
+- runFlow:
+    when:
+      visible: "button-gerenciar-tarefas"
+    commands:
+      - assertVisible: "button-gerenciar-tarefas"
+    else:
+      - assertVisible: "Gerenciar Tarefas"
+
+- runFlow:
+    when:
+      visible: "button-limpar-concluidas"
+    commands:
+      - assertVisible: "button-limpar-concluidas"
+    else:
+      - assertVisible: "Limpar Concluídas"
+
+# Tentar clicar no botão usando texto (deve funcionar)
+- tapOn: "Gerenciar Tarefas"
+- assertVisible: "Task Manager"
+
+# Verificar testIDs na tela de tarefas
+- runFlow:
+    when:
+      visible: "task-screen"
+    commands:
+      - assertVisible: "task-screen"
+    else:
+      - assertVisible: "Task Manager"
+
+- runFlow:
+    when:
+      visible: "task-input"
+    commands:
+      - assertVisible: "task-input"
+    else:
+      - assertVisible: "Adicionar uma nova tarefa..."
+
+- runFlow:
+    when:
+      visible: "add-task-button"
+    commands:
+      - assertVisible: "add-task-button"
+    else:
+      - assertVisible: "Adicionar" 

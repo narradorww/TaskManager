@@ -13,6 +13,8 @@
     "test:e2e:dashboard": "maestro test maestro/dashboard-screen-test.yaml",
     "test:e2e:add-task": "maestro test maestro/add-task-test.yaml",
     "test:e2e:simple": "maestro test maestro/simple-dashboard-test.yaml",
+    "test:e2e:basic": "maestro test maestro/basic-text-test.yaml",
+    "test:e2e:final": "maestro test maestro/final-working-test.yaml",
     "prepare": "husky"
   },
   "lint-staged": {

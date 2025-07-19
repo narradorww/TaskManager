@@ -7,9 +7,6 @@ tags:
 ---
 - launchApp
 
-# Aguardar um tempo para o app carregar completamente
-- pause: 3000
-
 # Verificar se a tela principal está visível
 - assertVisible: "dashboard-screen"
 

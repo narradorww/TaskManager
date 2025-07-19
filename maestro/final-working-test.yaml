@@ -1,0 +1,40 @@
+appId: com.taskmanager
+name: Final Working Test - Text Only
+tags:
+  - e2e
+  - working
+  - text-only
+
+---
+- launchApp
+
+# Dashboard Screen
+- assertVisible: "Resumo das Tarefas"
+- assertVisible: "Gerenciar Tarefas"
+- assertVisible: "Limpar Concluídas"
+
+# Navegar para Task Management
+- tapOn: "Gerenciar Tarefas"
+- assertVisible: "Task Manager"
+
+# Adicionar uma tarefa
+- tapOn: "Adicionar uma nova tarefa..."
+- inputText: "Tarefa de teste E2E"
+- tapOn: "Adicionar"
+
+# Verificar se a tarefa foi adicionada
+- assertVisible: "Tarefa de teste E2E"
+
+# Marcar como concluída
+- tapOn: "Tarefa de teste E2E"
+
+# Voltar para o dashboard
+- back
+- assertVisible: "Resumo das Tarefas"
+
+# Limpar tarefas concluídas
+- tapOn: "Limpar Concluídas"
+
+# Verificar se foi limpo
+- tapOn: "Gerenciar Tarefas"
+- assertNotVisible: "Tarefa de teste E2E" 
