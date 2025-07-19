@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
+import { render } from '@testing-library/react-native';
 import { AddTaskForm } from '../src/features/tasks/components/molecules/AddTaskForm';
 import { TasksProvider } from '../src/features/tasks/context/TaskContext';
 

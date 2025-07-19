@@ -37,9 +37,8 @@ export const AddTaskForm = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
     backgroundColor: '#f9f9f9',
   },
   input: {
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingVertical: 12,
     marginRight: 12,
     borderRadius: 8,
     fontSize: 16,

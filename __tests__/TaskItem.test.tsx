@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
+import { render } from '@testing-library/react-native';
 import { TaskItem } from '../src/features/tasks/components/molecules/TaskItem';
 import { Task, TaskStatus } from '../src/types/task';
 import { TasksProvider } from '../src/features/tasks/context/TaskContext';

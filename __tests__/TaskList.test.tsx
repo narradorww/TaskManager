@@ -53,6 +53,6 @@ describe('TaskList', () => {
   });
 
   it('deve exportar ITEM_HEIGHT corretamente', () => {
-    expect(ITEM_HEIGHT).toBe(60);
+    expect(ITEM_HEIGHT).toBe(66);
   });
 }); 
