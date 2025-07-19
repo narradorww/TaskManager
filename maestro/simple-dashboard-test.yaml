@@ -1,0 +1,20 @@
+appId: com.taskmanager
+name: Simple Dashboard Test
+tags:
+  - e2e
+  - simple
+
+---
+- launchApp
+
+# Aguardar um tempo para o app carregar completamente
+- pause: 3000
+
+# Verificar se a tela principal está visível
+- assertVisible: "dashboard-screen"
+
+# Verificar se o título está presente
+- assertVisible: "Resumo das Tarefas"
+
+# Verificar se os botões estão presentes
+- assertVisible: "button-gerenciar-tarefas" 

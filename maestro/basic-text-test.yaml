@@ -1,0 +1,23 @@
+appId: com.taskmanager
+name: Basic Text Test
+tags:
+  - e2e
+  - basic
+
+---
+- launchApp
+
+# Aguardar carregamento
+- pause: 3000
+
+# Verificar se o título está visível (por texto)
+- assertVisible: "Resumo das Tarefas"
+
+# Verificar se o botão está visível (por texto)
+- assertVisible: "Gerenciar Tarefas"
+
+# Tentar clicar no botão
+- tapOn: "Gerenciar Tarefas"
+
+# Verificar se navegou para a tela de tarefas
+- assertVisible: "Task Manager" 

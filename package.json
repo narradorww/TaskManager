@@ -12,6 +12,7 @@
     "test:e2e:flow": "maestro test maestro/task-management-flow.yaml",
     "test:e2e:dashboard": "maestro test maestro/dashboard-screen-test.yaml",
     "test:e2e:add-task": "maestro test maestro/add-task-test.yaml",
+    "test:e2e:simple": "maestro test maestro/simple-dashboard-test.yaml",
     "prepare": "husky"
   },
   "lint-staged": {
