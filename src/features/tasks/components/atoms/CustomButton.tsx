@@ -21,11 +21,12 @@ export const CustomButton = ({
 }: CustomButtonProps) => {
   return (
     <TouchableOpacity
+      testID={`button-${title.toLowerCase().replace(/\s+/g, '-')}`}
       style={[styles.button, disabled && styles.buttonDisabled]}
       onPress={onPress}
       disabled={disabled || loading}>
       {loading ? (
-        <ActivityIndicator color="#fff" />
+        <ActivityIndicator testID="button-loading-indicator" color="#fff" />
       ) : (
         <Text style={styles.buttonText}>{title}</Text>
       )}

@@ -20,17 +20,19 @@ export const DashboardScreen = () => {
 
   if (state.isLoading) {
     return (
-      <View style={styles.centered}>
-        <Text>Carregando tarefas...</Text>
+      <View testID="dashboard-loading" style={styles.centered}>
+        <Text testID="loading-text">Carregando tarefas...</Text>
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Resumo das Tarefas</Text>
+    <View testID="dashboard-screen" style={styles.container}>
+      <Text testID="dashboard-title" style={styles.title}>
+        Resumo das Tarefas
+      </Text>
 
-      <View style={styles.cardsContainer}>
+      <View testID="dashboard-cards-container" style={styles.cardsContainer}>
         <StatusCard
           label="Pendentes"
           count={pendingTasksCount}
@@ -43,7 +45,9 @@ export const DashboardScreen = () => {
         />
       </View>
 
-      <View style={styles.actionsContainer}>
+      <View
+        testID="dashboard-actions-container"
+        style={styles.actionsContainer}>
         <CustomButton
           title="Limpar Concluídas"
           onPress={handleClearCompleted}

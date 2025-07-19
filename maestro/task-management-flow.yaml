@@ -1,0 +1,52 @@
+appId: com.taskmanager
+name: Task Management Flow
+tags:
+  - e2e
+  - task-management
+
+---
+- launchApp
+- assertVisible: 'Resumo das Tarefas'
+- assertVisible: 'dashboard-screen'
+
+# Verificar se os cards estão presentes
+- assertVisible: 'status-card-pending'
+- assertVisible: 'status-card-completed'
+- assertVisible: 'status-card-count-pending'
+- assertVisible: 'status-card-count-completed'
+
+# Navegar para a tela de gerenciamento de tarefas
+- tapOn: 'button-gerenciar-tarefas'
+- assertVisible: 'task-screen'
+- assertVisible: 'task-screen-title'
+- assertVisible: 'Task Manager'
+
+# Adicionar uma nova tarefa
+- tapOn: 'task-input'
+- inputText: 'Teste de tarefa E2E'
+- tapOn: 'add-task-button'
+
+# Verificar se a tarefa foi adicionada
+- assertVisible: 'task-list'
+- assertVisible: 'Teste de tarefa E2E'
+
+# Marcar tarefa como concluída
+- tapOn: 'task-checkbox-*'
+
+# Verificar se o checkmark apareceu
+- assertVisible: 'task-checkmark-*'
+
+# Voltar para o dashboard
+- back
+
+# Verificar se os contadores foram atualizados
+- assertVisible: 'dashboard-screen'
+- assertVisible: 'status-card-count-pending'
+- assertVisible: 'status-card-count-completed'
+
+# Limpar tarefas concluídas
+- tapOn: 'button-limpar-concluidas'
+
+# Verificar se a tarefa foi removida
+- tapOn: 'button-gerenciar-tarefas'
+- assertNotVisible: 'Teste de tarefa E2E'

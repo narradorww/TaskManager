@@ -1,0 +1,20 @@
+appId: com.taskmanager
+name: TaskManager E2E Tests
+tags:
+  - e2e
+  - react-native
+
+# Configurações globais
+env:
+  TIMEOUT: 10000
+  RETRY_COUNT: 3
+
+# Configurações de dispositivo
+device:
+  name: 'Android Emulator'
+  os: 'Android'
+
+# Configurações de teste
+test:
+  timeout: 30000
+  retryCount: 2

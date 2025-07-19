@@ -23,16 +23,25 @@ export const TaskItem = ({ task }: TaskItemProps) => {
   const isCompleted = task.status === 'COMPLETED';
 
   return (
-    <View style={styles.container}>
+    <View testID={`task-item-${task.id}`} style={styles.container}>
       <TouchableOpacity
+        testID={`task-checkbox-${task.id}`}
         style={[styles.checkbox, isCompleted && styles.checkboxCompleted]}
         onPress={handleToggleStatus}
         accessibilityRole="button"
         accessibilityLabel={`Marcar tarefa ${task.text} como ${isCompleted ? 'pendente' : 'concluída'}`}>
-        {isCompleted && <Text style={styles.checkboxText}>✓</Text>}
+        {isCompleted && (
+          <Text
+            testID={`task-checkmark-${task.id}`}
+            style={styles.checkboxText}>
+            ✓
+          </Text>
+        )}
       </TouchableOpacity>
 
-      <Text style={[styles.text, isCompleted && styles.textCompleted]}>
+      <Text
+        testID={`task-text-${task.id}`}
+        style={[styles.text, isCompleted && styles.textCompleted]}>
         {task.text}
       </Text>
     </View>

@@ -16,18 +16,20 @@ export const TaskScreen = () => {
   const { state } = useTasks();
 
   return (
-    <View style={styles.container}>
+    <View testID="task-screen" style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#f9f9f9" />
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
-          <Text style={styles.title}>Task Manager</Text>
+          <Text testID="task-screen-title" style={styles.title}>
+            Task Manager
+          </Text>
         </View>
 
-        <View style={styles.formContainer}>
+        <View testID="task-form-container" style={styles.formContainer}>
           <AddTaskForm />
         </View>
 
-        <View style={styles.listContainer}>
+        <View testID="task-list-container" style={styles.listContainer}>
           <TaskList tasks={state.tasks} />
         </View>
 

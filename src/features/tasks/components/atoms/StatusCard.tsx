@@ -13,11 +13,17 @@ export const StatusCard = ({ label, count, statusType }: StatusCardProps) => {
   const chipColor = statusType === 'PENDING' ? '#007AFF' : '#28a745';
 
   return (
-    <View style={styles.card}>
+    <View
+      testID={`status-card-${statusType.toLowerCase()}`}
+      style={styles.card}>
       <View style={[styles.chip, { backgroundColor: chipColor }]}>
         <Text style={styles.chipText}>{label}</Text>
       </View>
-      <Text style={styles.cardNumber}>{count}</Text>
+      <Text
+        testID={`status-card-count-${statusType.toLowerCase()}`}
+        style={styles.cardNumber}>
+        {count}
+      </Text>
     </View>
   );
 };

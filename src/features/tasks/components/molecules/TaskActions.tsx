@@ -18,8 +18,9 @@ export const TaskActions = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <View testID="task-actions" style={styles.container}>
       <Button
+        testID="clear-completed-button"
         title="Limpar Concluídas"
         onPress={handleClearCompleted}
         color="#E53935"

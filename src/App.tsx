@@ -6,7 +6,7 @@ import { AppNavigator } from './navigation/AppNavigator';
 function App() {
   return (
     <TasksProvider>
-      <NavigationContainer>
+      <NavigationContainer testID="navigation-container">
         <AppNavigator />
       </NavigationContainer>
     </TasksProvider>

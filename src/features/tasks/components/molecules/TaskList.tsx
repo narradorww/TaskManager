@@ -20,6 +20,7 @@ export const TaskList = ({ tasks }: TaskListProps) => {
 
   return (
     <FlatList
+      testID="task-list"
       data={tasks}
       renderItem={renderItem}
       keyExtractor={item => item.id}

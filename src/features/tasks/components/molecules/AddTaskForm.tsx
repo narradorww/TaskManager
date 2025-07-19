@@ -15,8 +15,9 @@ export const AddTaskForm = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View testID="add-task-form" style={styles.container}>
       <TextInput
+        testID="task-input"
         style={styles.input}
         placeholder="Adicionar uma nova tarefa..."
         placeholderTextColor="#8e8e93"
@@ -26,6 +27,7 @@ export const AddTaskForm = () => {
         returnKeyType="done"
       />
       <Button
+        testID="add-task-button"
         title="Adicionar"
         onPress={handleAddTask}
         disabled={text.trim().length === 0}
