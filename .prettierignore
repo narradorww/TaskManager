@@ -1,0 +1,13 @@
+# Dependências
+/node_modules
+
+# Arquivos de Build (se houver)
+/build
+/dist
+
+# Arquivos de Configuração
+.eslintrc.js
+.prettierrc.js
+commitlint.config.js
+jest.config.js
+jest-setup.js
