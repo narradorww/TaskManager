@@ -169,16 +169,23 @@ npm test -- --coverage
 ```
 
 ### Testes E2E (Maestro)
+
+Este projeto utiliza o [Maestro](https://maestro.mobile.dev/) para testes end-to-end.
+
+> **Atenção:** Os testes E2E funcionam apenas com seletores de texto, não utilize testIDs.
+
 ```bash
-# Teste básico
-npm run test:e2e:basic
-
-# Teste completo (recomendado)
-npm run test:e2e:final
-
-# Executar todos os testes E2E
-npm run test:e2E
+# Executar o teste E2E funcional
+npm run test:e2e
+# ou diretamente
+maestro test maestro/test.yaml
 ```
+
+#### Troubleshooting Maestro
+- Certifique-se de que o app está compilado com as últimas mudanças.
+- Use sempre seletores de texto nos testes E2E.
+- Se o teste falhar, rode novamente após recompilar o app.
+- Para mais dicas, consulte a seção de troubleshooting abaixo.
 
 ### Qualidade de Código
 ```bash
@@ -276,3 +283,11 @@ Desenvolvido com ❤️ seguindo as melhores práticas de desenvolvimento mobile
 ---
 
 **TaskManager** - Organize suas tarefas de forma eficiente e escalável! 🚀
+
+## 🛠️ Troubleshooting E2E (Maestro)
+
+- **TestIDs não funcionam:** Use apenas seletores de texto nos testes E2E.
+- **App não carrega:** Recompile o app com `npx react-native run-android --reset-cache`.
+- **Elemento não encontrado:** Verifique se o texto está exatamente igual ao exibido na tela.
+- **Emulador travado:** Reinicie o emulador e o Metro bundler.
+- **Logs detalhados:** Use `maestro test maestro/test.yaml --format junit` para gerar relatórios.
