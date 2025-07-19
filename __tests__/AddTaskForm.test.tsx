@@ -20,7 +20,7 @@ const renderWithProvider = (component: React.ReactElement) => {
 describe('AddTaskForm', () => {
   it('deve renderizar o formulário corretamente', () => {
     const { getByPlaceholderText, getByText } = renderWithProvider(
-      <AddTaskForm />
+      <AddTaskForm />,
     );
 
     expect(getByPlaceholderText('Adicionar uma nova tarefa...')).toBeTruthy();
@@ -61,6 +61,4 @@ describe('AddTaskForm', () => {
     const input = getByPlaceholderText('Adicionar uma nova tarefa...');
     expect(input.props.onChangeText).toBeDefined();
   });
-
-
 }); 
