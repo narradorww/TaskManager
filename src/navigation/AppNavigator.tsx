@@ -1,13 +1,14 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DashboardScreen } from '../features/tasks/screens/DashBoardScreen';
 import { TaskScreen } from '../features/tasks/screens/TaskScreen';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export const AppNavigator = () => {
   return (
-    <Stack.Navigator
+    <Tab.Navigator
       initialRouteName="Dashboard"
       screenOptions={{
         headerStyle: {
@@ -18,16 +19,26 @@ export const AppNavigator = () => {
           fontWeight: 'bold',
         },
       }}>
-      <Stack.Screen
+      <Tab.Screen
         name="Dashboard"
         component={DashboardScreen}
-        options={{ title: 'Dashboard de Tarefas' }}
+        options={{
+          title: 'Dashboard de Tarefas',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="home-outline" color={color} size={size} />
+          ),
+        }}
       />
-      <Stack.Screen
+      <Tab.Screen
         name="TaskManagement"
         component={TaskScreen}
-        options={{ title: 'Gerenciar Tarefas' }}
+        options={{
+          title: 'Gerenciar Tarefas',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="list-outline" color={color} size={size} />
+          ),
+        }}
       />
-    </Stack.Navigator>
+    </Tab.Navigator>
   );
 };

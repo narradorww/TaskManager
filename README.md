@@ -266,11 +266,3 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ---
 
 **TaskManager** - Organize suas tarefas de forma eficiente e escalável! 🚀
-
-## 🛠️ Troubleshooting E2E (Maestro)
-
-- **TestIDs não funcionam:** Use apenas seletores de texto nos testes E2E.
-- **App não carrega:** Recompile o app com `npx react-native run-android --reset-cache`.
-- **Elemento não encontrado:** Verifique se o texto está exatamente igual ao exibido na tela.
-- **Emulador travado:** Reinicie o emulador e o Metro bundler.
-- **Logs detalhados:** Use `maestro test maestro/test.yaml --format junit` para gerar relatórios.

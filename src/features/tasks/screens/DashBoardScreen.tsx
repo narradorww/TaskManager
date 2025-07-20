@@ -45,15 +45,18 @@ export const DashboardScreen = () => {
         />
       </View>
 
-      <View
-        testID="dashboard-actions-container"
-        style={styles.actionsContainer}>
+      {/* Botão Limpar Concluídas acima do bottom navigation */}
+      <View style={styles.clearCompletedContainer}>
         <CustomButton
           title="Limpar Concluídas"
           onPress={handleClearCompleted}
           disabled={completedTasksCount === 0}
         />
-        <View style={styles.spacer} />
+      </View>
+
+      <View
+        testID="dashboard-actions-container"
+        style={styles.actionsContainer}>
         <CustomButton
           title="Gerenciar Tarefas"
           onPress={() => navigation.navigate('TaskManagement')}
@@ -92,5 +95,9 @@ const styles = StyleSheet.create({
   },
   spacer: {
     marginTop: 16,
+  },
+  clearCompletedContainer: {
+    marginBottom: 24,
+    paddingHorizontal: 20,
   },
 });
