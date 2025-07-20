@@ -94,11 +94,11 @@ jobs:
       - name: Build APK for Android (Debug)
         run: |
           cd android
-          ./gradlew assembleDebug
+          ./gradlew assembleRelease
       - name: Verify APK was built
         run: |
-          ls -la android/app/build/outputs/apk/debug/
-          echo "APK size: $(du -h android/app/build/outputs/apk/debug/app-debug.apk)"
+          ls -la android/app/build/outputs/apk/release/
+          echo "APK size: $(du -h android/app/build/outputs/apk/release/app-release.apk)"
 
       - name: Checkout target repository (seo-lp-ia)
         uses: actions/checkout@v4
