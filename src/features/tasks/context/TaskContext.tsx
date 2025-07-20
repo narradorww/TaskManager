@@ -35,7 +35,8 @@ export const TasksProvider = ({
   );
 
   useEffect(() => {
-    if (initialTestState) return; // Pula o efeito de carregamento em testes
+    if (initialTestState) return;
+    if (process.env.NODE_ENV === 'test') return;
     const loadTasks = async () => {
       try {
         const storedTasks = await AsyncStorage.getItem(STORAGE_KEY);
