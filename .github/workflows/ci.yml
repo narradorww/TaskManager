@@ -77,6 +77,20 @@ jobs:
           java-version: '17'
       - name: Install dependencies
         run: npm ci
+      - name: Create .env.local for Android signing
+        run: |
+          cat <<EOF > android/.env.local
+          MYAPP_UPLOAD_STORE_FILE=${{ secrets.MYAPP_UPLOAD_STORE_FILE }}
+          MYAPP_UPLOAD_KEY_ALIAS=${{ secrets.MYAPP_UPLOAD_KEY_ALIAS }}
+          MYAPP_UPLOAD_STORE_PASSWORD=${{ secrets.MYAPP_UPLOAD_STORE_PASSWORD }}
+          MYAPP_UPLOAD_KEY_PASSWORD=${{ secrets.MYAPP_UPLOAD_KEY_PASSWORD }}
+          EOF
+      - name: Log Android signing env variables
+        run: |
+          echo "MYAPP_UPLOAD_STORE_FILE: ${MYAPP_UPLOAD_STORE_FILE:0:3}..."
+          echo "MYAPP_UPLOAD_KEY_ALIAS: ${MYAPP_UPLOAD_KEY_ALIAS:0:3}..."
+          echo "MYAPP_UPLOAD_STORE_PASSWORD: ${MYAPP_UPLOAD_STORE_PASSWORD:0:1}... (hidden)"
+          echo "MYAPP_UPLOAD_KEY_PASSWORD: ${MYAPP_UPLOAD_KEY_PASSWORD:0:1}... (hidden)"
       - name: Build APK for Android (Debug)
         run: |
           cd android
