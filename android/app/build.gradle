@@ -75,16 +75,12 @@ def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 import java.util.Properties
 import java.io.FileInputStream
 
-// Carregar variáveis do .env.local ou .env.release
-Properties envProps = new Properties()
-File envFile = rootProject.file(".env.local")
-if (!envFile.exists()) {
-    envFile = rootProject.file(".env.release")
-}
+def envFile = rootProject.file('.env.local')
 if (envFile.exists()) {
-    envProps.load(new FileInputStream(envFile))
-    envProps.each { key, value ->
-        ext["$key"] = value
+    Properties props = new Properties()
+    props.load(new FileInputStream(envFile))
+    props.each { key, value ->
+        ext.set(key, value)
     }
 }
 
