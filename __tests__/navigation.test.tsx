@@ -15,8 +15,15 @@ jest.mock('uuid', () => ({
   v4: jest.fn(() => 'test-uuid-' + Math.random().toString(36).substr(2, 9)),
 }));
 
-const renderWithProvider = (component: React.ReactElement) => {
-  return render(<TasksProvider>{component}</TasksProvider>);
+const renderWithProvider = (
+  component: React.ReactElement,
+  initialTestState = { tasks: [], isLoading: false },
+) => {
+  return render(
+    <TasksProvider initialTestState={initialTestState}>
+      {component}
+    </TasksProvider>,
+  );
 };
 
 describe('Navigation Components', () => {
