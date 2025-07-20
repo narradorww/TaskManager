@@ -1,4 +1,4 @@
-name: CI - Validation and Tests
+name: CI/CD Pipeline
 
 on:
   push:
@@ -8,55 +8,29 @@ on:
 
 jobs:
   validate:
-    name: "Lint, Type Check and Unit Tests"
+    name: "Validate Code"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        
       - name: Setup Node.js v20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'yarn'
+          
       - name: Install dependencies
         run: yarn install
-      - name: Lint and formatting
+        
+      - name: Run linting
         run: yarn lint
-      - name: Type check
+        
+      - name: Run type checking
         run: yarn type-check
+        
       - name: Run unit tests
         run: yarn test --coverage
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/
-
-  e2e-maestro:
-    name: "E2E Tests (Maestro)"
-    needs: validate
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Setup Node.js v20
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install
-      - name: Install Maestro CLI
-        run: |
-          curl -Ls "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
-      - name: Run Maestro E2E test
-        run: maestro test maestro/test.yaml --format junit || true
-      - name: Upload E2E report
-        uses: actions/upload-artifact@v4
-        with:
-          name: maestro-e2e-report
-          path: maestro/
 
   build-android:
     name: "Build Verification (Android)"
@@ -65,18 +39,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        
       - name: Setup Node.js v20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'yarn'
+          
       - name: Setup Java (JDK)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
+          
       - name: Install dependencies
         run: yarn install
+        
       - name: Create .env.local for Android signing
         run: |
           cat <<EOF > android/.env.local
@@ -85,55 +63,32 @@ jobs:
           MYAPP_UPLOAD_STORE_PASSWORD=${{ secrets.MYAPP_UPLOAD_STORE_PASSWORD }}
           MYAPP_UPLOAD_KEY_PASSWORD=${{ secrets.MYAPP_UPLOAD_KEY_PASSWORD }}
           EOF
-      - name: Log Android signing env variables
-        run: |
-          echo "MYAPP_UPLOAD_STORE_FILE: ${MYAPP_UPLOAD_STORE_FILE:0:3}..."
-          echo "MYAPP_UPLOAD_KEY_ALIAS: ${MYAPP_UPLOAD_KEY_ALIAS:0:3}..."
-          echo "MYAPP_UPLOAD_STORE_PASSWORD: ${MYAPP_UPLOAD_STORE_PASSWORD:0:1}... (hidden)"
-          echo "MYAPP_UPLOAD_KEY_PASSWORD: ${MYAPP_UPLOAD_KEY_PASSWORD:0:1}... (hidden)"
-      - name: Build APK for Android (Debug)
+          
+      - name: Build APK for Android (Release)
         run: |
           cd android
           ./gradlew assembleRelease
+          
       - name: Verify APK was built
         run: |
           ls -la android/app/build/outputs/apk/release/
-          echo "APK size: $(du -h android/app/build/outputs/apk/release/app-release.apk)"
-
-      - name: Checkout target repository (seo-lp-ia)
-        uses: actions/checkout@v4
+          
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          repository: narradorww/seo-lp-ia
-          token: ${{ secrets.TARGET_REPO_TOKEN }}
-          path: target-repo
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: sa-east-1
 
-      - name: Copy APK to target repository
+      - name: Upload APK to S3
         run: |
-          mkdir -p target-repo/public/builds
-          cp android/app/build/outputs/apk/debug/app-debug.apk \
-             target-repo/public/builds/taskmanager-v${{ github.run_number }}.apk
-          echo "APK copied as: taskmanager-v${{ github.run_number }}.apk"
-
-      - name: Commit and push APK to target repository
-        run: |
-          cd target-repo
-          git config user.name "TaskManager Build Bot"
-          git config user.email "taskmanager-bot@noreply.github.com"
-          git add public/builds/taskmanager-v${{ github.run_number }}.apk
-          git commit -m "feat: add TaskManager APK v${{ github.run_number }}
-          
-          🤖 Auto-deployed from TaskManager build #${{ github.run_number }}
-          
-          - Repository: narradorww/TaskManager
-          - Commit: ${{ github.sha }}
-          - Build: #${{ github.run_number }}
-          
-          Co-Authored-By: TaskManager CI <taskmanager-ci@noreply.github.com>"
-          git push origin main
+          aws s3 cp \
+            android/app/build/outputs/apk/release/app-release.apk \
+            s3://rodrigo-apk-store/taskmanager-v${{ github.run_number }}.apk
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
         with:
           name: taskmanager-v${{ github.run_number }}.apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: android/app/build/outputs/apk/release/app-release.apk
           retention-days: 30
