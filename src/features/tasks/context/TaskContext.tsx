@@ -22,10 +22,20 @@ interface ITasksContext {
 
 export const TasksContext = createContext<ITasksContext | undefined>(undefined);
 
-export const TasksProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(tasksReducer, initialState);
+export const TasksProvider = ({
+  children,
+  initialTestState,
+}: {
+  children: ReactNode;
+  initialTestState?: TasksState;
+}) => {
+  const [state, dispatch] = useReducer(
+    tasksReducer,
+    initialTestState || initialState,
+  );
 
   useEffect(() => {
+    if (initialTestState) return; // Pula o efeito de carregamento em testes
     const loadTasks = async () => {
       try {
         const storedTasks = await AsyncStorage.getItem(STORAGE_KEY);
@@ -43,7 +53,7 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
       }
     };
     loadTasks();
-  }, []);
+  }, [initialTestState]);
 
   useEffect(() => {
     if (!state.isLoading) {
