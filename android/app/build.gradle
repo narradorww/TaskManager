@@ -84,6 +84,10 @@ if (envFile.exists()) {
     }
 }
 
+def getEnvOrExt(key) {
+    return ext.has(key) ? ext.get(key) : System.getenv(key)
+}
+
 android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -105,10 +109,10 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file(ext.MYAPP_UPLOAD_STORE_FILE)
-            storePassword ext.MYAPP_UPLOAD_STORE_PASSWORD
-            keyAlias ext.MYAPP_UPLOAD_KEY_ALIAS
-            keyPassword ext.MYAPP_UPLOAD_KEY_PASSWORD
+            storeFile file(getEnvOrExt('MYAPP_UPLOAD_STORE_FILE'))
+            storePassword getEnvOrExt('MYAPP_UPLOAD_STORE_PASSWORD')
+            keyAlias getEnvOrExt('MYAPP_UPLOAD_KEY_ALIAS')
+            keyPassword getEnvOrExt('MYAPP_UPLOAD_KEY_PASSWORD')
         }
     }
     buildTypes {
