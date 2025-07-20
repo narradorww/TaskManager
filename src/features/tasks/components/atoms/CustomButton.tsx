@@ -11,6 +11,7 @@ interface CustomButtonProps {
   onPress: () => void;
   disabled?: boolean;
   loading?: boolean;
+  testID?: string;
 }
 
 export const CustomButton = ({
