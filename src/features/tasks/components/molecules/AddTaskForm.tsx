@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Keyboard } from 'react-native';
+import { View, TextInput, StyleSheet, Keyboard } from 'react-native';
 import { useTasks } from '../../context/TaskContext';
+import { CustomButton } from '../atoms/CustomButton';
 
 export const AddTaskForm = () => {
   const [text, setText] = useState('');
@@ -26,7 +27,7 @@ export const AddTaskForm = () => {
         onSubmitEditing={handleAddTask}
         returnKeyType="done"
       />
-      <Button
+      <CustomButton
         testID="add-task-button"
         title="Adicionar"
         onPress={handleAddTask}
