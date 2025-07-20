@@ -6,6 +6,18 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
+const DashboardIcon = ({ color, size }: { color: string; size: number }) => (
+  <Icon name="home-outline" color={color} size={size} />
+);
+
+const TaskManagementIcon = ({
+  color,
+  size,
+}: {
+  color: string;
+  size: number;
+}) => <Icon name="list-outline" color={color} size={size} />;
+
 export const AppNavigator = () => {
   return (
     <Tab.Navigator
@@ -24,9 +36,7 @@ export const AppNavigator = () => {
         component={DashboardScreen}
         options={{
           title: 'Dashboard de Tarefas',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="home-outline" color={color} size={size} />
-          ),
+          tabBarIcon: DashboardIcon,
         }}
       />
       <Tab.Screen
@@ -34,9 +44,7 @@ export const AppNavigator = () => {
         component={TaskScreen}
         options={{
           title: 'Gerenciar Tarefas',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="list-outline" color={color} size={size} />
-          ),
+          tabBarIcon: TaskManagementIcon,
         }}
       />
     </Tab.Navigator>
