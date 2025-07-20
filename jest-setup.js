@@ -7,3 +7,16 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   removeItem: jest.fn(),
   clear: jest.fn(),
 }));
+
+jest.mock('@react-navigation/bottom-tabs', () => {
+  const actualNav = jest.requireActual('@react-navigation/bottom-tabs');
+  return {
+    ...actualNav,
+    createBottomTabNavigator: jest.fn(() => {
+      return {
+        Navigator: ({ children }) => children,
+        Screen: ({ children }) => children,
+      };
+    }),
+  };
+});
