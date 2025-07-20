@@ -17,15 +17,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
+          cache: 'yarn'
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
       - name: Lint and formatting
-        run: npm run lint
+        run: yarn lint
       - name: Type check
-        run: npm run type-check
+        run: yarn type-check
       - name: Run unit tests
-        run: npm test -- --coverage
+        run: yarn test --coverage
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
@@ -43,9 +43,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
+          cache: 'yarn'
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
       - name: Install Maestro CLI
         run: |
           curl -Ls "https://get.maestro.mobile.dev" | bash
@@ -69,14 +69,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
+          cache: 'yarn'
       - name: Setup Java (JDK)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
       - name: Create .env.local for Android signing
         run: |
           cat <<EOF > android/.env.local
