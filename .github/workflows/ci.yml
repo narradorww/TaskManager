@@ -101,7 +101,7 @@ jobs:
 
       - name: Download release keystore from S3
         run: |
-          aws s3 cp s3://rodrigo-apk-store/keystore/release.keystore android/app/release.keystore
+          aws s3 cp s3://rodrigo-apk-store/release-key.keystore android/app/release.keystore
         
       - name: Create .env.local for Android signing
         run: |
