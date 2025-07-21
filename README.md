@@ -10,7 +10,7 @@ O TaskManager é uma aplicação móvel que permite ao usuário criar, gerenciar
 
 ### Por que esta configuração?
 
-A escolha das tecnologias e configurações foi baseada em requisitos específicos de qualidade, escalabilidade e experiência do desenvolvedor(DX):
+A escolha das tecnologias e configurações foi baseada em requisitos específicos de qualidade, escalabilidade e experiência do desenvolvedor(DX) além da necessidade de demostrar conhecimentos em CICD:
 
 #### **React Native + TypeScript**
 - **Type Safety**: TypeScript oferece verificação de tipos em tempo de compilação, reduzindo bugs em runtime
