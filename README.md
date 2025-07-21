@@ -132,7 +132,7 @@ graph LR
     E --> F[E2E Tests]
     F --> G[Build APK]
     G --> H[Deploy S3]
-    F --> F[Publish on Internal Store]
+    H --> I[Publish on Internal Store]
 ```
 
 ### Etapas do Pipeline
