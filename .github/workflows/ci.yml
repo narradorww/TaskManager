@@ -92,13 +92,24 @@ jobs:
       - name: Install dependencies
         run: yarn install
         
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: sa-east-1
+
+      - name: Download release keystore from S3
+        run: |
+          aws s3 cp s3://rodrigo-apk-store/keystore/release.keystore android/app/release.keystore
+        
       - name: Create .env.local for Android signing
         run: |
           cat <<EOF > android/.env.local
-          MYAPP_UPLOAD_STORE_FILE=debug.keystore
-          MYAPP_UPLOAD_KEY_ALIAS=androiddebugkey
-          MYAPP_UPLOAD_STORE_PASSWORD=android
-          MYAPP_UPLOAD_KEY_PASSWORD=android
+          MYAPP_UPLOAD_STORE_FILE=release.keystore
+          MYAPP_UPLOAD_KEY_ALIAS=${{ secrets.MYAPP_UPLOAD_KEY_ALIAS }}
+          MYAPP_UPLOAD_STORE_PASSWORD=${{ secrets.MYAPP_UPLOAD_STORE_PASSWORD }}
+          MYAPP_UPLOAD_KEY_PASSWORD=${{ secrets.MYAPP_UPLOAD_KEY_PASSWORD }}
           EOF
           
       - name: Log Android signing env variables
@@ -117,13 +128,6 @@ jobs:
         run: |
           ls -la android/app/build/outputs/apk/release/
           echo "APK size: $(du -h android/app/build/outputs/apk/release/app-release.apk)"
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: sa-east-1
 
       - name: Upload APK to S3
         run: |
