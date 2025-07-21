@@ -2,20 +2,20 @@
 
 Um aplicativo de gerenciamento de tarefas desenvolvido em React Native com TypeScript para o desafio técnico da Capitani Grouṕ, seguindo princípios de arquitetura escalável e boas práticas de desenvolvimento.
 
-🎯 Visão Geral
+## 🎯 Visão Geral
 Além do desafio principal — criar uma aplicação funcional para gerenciamento de tarefas — este projeto propõe um fluxo completo de CI/CD voltado para times pequenos, com foco em distribuição interna de builds.
 
 A aplicação foi pensada para cenários em que não se quer (ou não se pode) depender das lojas oficiais (Google Play ou App Store) para testes. Por isso, todo o processo de entrega contínua foi estruturado para entregar versões assinadas automaticamente em uma loja interna personalizada.
 
 📲 A versão mais recente do APK está disponível para download via link direto ou QR Code na loja:
 
-🔗 Loja Interna - TaskManager
+## 🔗 Loja Interna - TaskManager
 
 📸 Visual da Loja Interna
 
 ![TaskManager App](src/assets/store.png)
 
-🔄 CI/CD Pipeline
+## 🔄 CI/CD Pipeline
 O projeto implementa um pipeline de CI/CD robusto usando GitHub Actions, garantindo qualidade e automação em todos os estágios de desenvolvimento.
 
 🧩 Estrutura do Pipeline
@@ -32,7 +32,7 @@ graph LR
     H --> I[Publicação na Loja Interna]
 ```
 
-⚙️ Etapas Explicadas
+## ⚙️ Etapas Explicadas
 1. Validação (validate)
 Executa yarn lint, yarn type-check e yarn test --coverage
 
@@ -49,6 +49,7 @@ Salva os relatórios dos testes como artefatos
 
 3. Build e Distribuição (build-android)
 Prepara o ambiente Android (Node.js, Java, SDK)
+[Nessa etapa optamos por focar na entrega do apk android por não estar com um MAC disponivel para teste]
 
 Baixa o keystore seguro da AWS S3 e configura as variáveis de assinatura
 
@@ -60,7 +61,7 @@ Para o bucket S3 (rodrigo-apk-store)
 
 Como artifact no GitHub (com versionamento via github.run_number)
 
-✅ Benefícios
+## ✅ Benefícios
 Distribuição Ágil: sem esperar publicação nas lojas
 
 Ambiente Controlado: ideal para QAs, devs ou usuários selecionados
