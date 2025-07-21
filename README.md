@@ -2,9 +2,74 @@
 
 Um aplicativo de gerenciamento de tarefas desenvolvido em React Native com TypeScript para o desafio técnico da Capitani Grouṕ, seguindo princípios de arquitetura escalável e boas práticas de desenvolvimento.
 
-## 🎯 Visão Geral
+🎯 Visão Geral
+Além do desafio principal — criar uma aplicação funcional para gerenciamento de tarefas — este projeto propõe um fluxo completo de CI/CD voltado para times pequenos, com foco em distribuição interna de builds.
 
-O TaskManager é uma aplicação móvel que permite ao usuário criar, gerenciar e acompanhar suas tarefas de forma eficiente. O projeto foi estruturado com foco em escalabilidade, manutenibilidade e qualidade de código.
+A aplicação foi pensada para cenários em que não se quer (ou não se pode) depender das lojas oficiais (Google Play ou App Store) para testes. Por isso, todo o processo de entrega contínua foi estruturado para entregar versões assinadas automaticamente em uma loja interna personalizada.
+
+📲 A versão mais recente do APK está disponível para download via link direto ou QR Code na loja:
+
+🔗 Loja Interna - TaskManager
+
+📸 Visual da Loja Interna
+
+![TaskManager App](src/assets/store.png)
+
+🔄 CI/CD Pipeline
+O projeto implementa um pipeline de CI/CD robusto usando GitHub Actions, garantindo qualidade e automação em todos os estágios de desenvolvimento.
+
+🧩 Estrutura do Pipeline
+
+```mermaid
+graph LR
+    A[Push/PR] --> B[Lint & Format]
+    B --> C[Type Check]
+    C --> D[Unit Tests]
+    D --> E[Coverage Report]
+    E --> F[E2E Tests]
+    F --> G[Build APK]
+    G --> H[Upload to AWS S3]
+    H --> I[Publicação na Loja Interna]
+```
+
+⚙️ Etapas Explicadas
+1. Validação (validate)
+Executa yarn lint, yarn type-check e yarn test --coverage
+
+Gera artefato com o relatório de cobertura
+
+Garante que o código está limpo e seguro antes de avançar
+
+2. Testes E2E com Maestro (e2e-maestro)
+Instala o CLI do Maestro
+
+Roda cenários de uso completos simulando o fluxo do usuário
+
+Salva os relatórios dos testes como artefatos
+
+3. Build e Distribuição (build-android)
+Prepara o ambiente Android (Node.js, Java, SDK)
+
+Baixa o keystore seguro da AWS S3 e configura as variáveis de assinatura
+
+Gera o bundle JS e compila o APK (assembleRelease)
+
+Faz o upload do APK:
+
+Para o bucket S3 (rodrigo-apk-store)
+
+Como artifact no GitHub (com versionamento via github.run_number)
+
+✅ Benefícios
+Distribuição Ágil: sem esperar publicação nas lojas
+
+Ambiente Controlado: ideal para QAs, devs ou usuários selecionados
+
+Segurança e Versionamento: builds assinados com controle de versão
+
+Interface Simples: com download via botão ou QR Code para facilitar o acesso em dispositivos reais
+
+
 
 ## 🏗️ Decisões Arquiteturais
 
