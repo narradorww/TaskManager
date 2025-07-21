@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI - Validation and Tests
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   validate:
-    name: "Validate Code"
+    name: "Lint, Type Check and Unit Tests"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -23,14 +23,51 @@ jobs:
       - name: Install dependencies
         run: yarn install
         
-      - name: Run linting
+      - name: Lint and formatting
         run: yarn lint
         
-      - name: Run type checking
+      - name: Type check
         run: yarn type-check
         
       - name: Run unit tests
         run: yarn test --coverage
+        
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+
+  e2e-maestro:
+    name: "E2E Tests (Maestro)"
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js v20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+          
+      - name: Install dependencies
+        run: yarn install
+        
+      - name: Install Maestro CLI
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+          
+      - name: Run Maestro E2E test
+        run: maestro test maestro/test.yaml --format junit || true
+        
+      - name: Upload E2E report
+        uses: actions/upload-artifact@v4
+        with:
+          name: maestro-e2e-report
+          path: maestro/
 
   build-android:
     name: "Build Verification (Android)"
@@ -55,25 +92,21 @@ jobs:
       - name: Install dependencies
         run: yarn install
         
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: sa-east-1
-
-      - name: Download release keystore from S3
-        run: |
-          aws s3 cp s3://rodrigo-apk-store/keystore/release.keystore android/app/release.keystore
-
       - name: Create .env.local for Android signing
         run: |
           cat <<EOF > android/.env.local
-          MYAPP_UPLOAD_STORE_FILE=release.keystore
+          MYAPP_UPLOAD_STORE_FILE=${{ secrets.MYAPP_UPLOAD_STORE_FILE }}
           MYAPP_UPLOAD_KEY_ALIAS=${{ secrets.MYAPP_UPLOAD_KEY_ALIAS }}
           MYAPP_UPLOAD_STORE_PASSWORD=${{ secrets.MYAPP_UPLOAD_STORE_PASSWORD }}
           MYAPP_UPLOAD_KEY_PASSWORD=${{ secrets.MYAPP_UPLOAD_KEY_PASSWORD }}
           EOF
+          
+      - name: Log Android signing env variables
+        run: |
+          echo "MYAPP_UPLOAD_STORE_FILE: ${MYAPP_UPLOAD_STORE_FILE:0:3}..."
+          echo "MYAPP_UPLOAD_KEY_ALIAS: ${MYAPP_UPLOAD_KEY_ALIAS:0:3}..."
+          echo "MYAPP_UPLOAD_STORE_PASSWORD: ${MYAPP_UPLOAD_STORE_PASSWORD:0:1}... (hidden)"
+          echo "MYAPP_UPLOAD_KEY_PASSWORD: ${MYAPP_UPLOAD_KEY_PASSWORD:0:1}... (hidden)"
           
       - name: Build APK for Android (Release)
         run: |
@@ -83,12 +116,21 @@ jobs:
       - name: Verify APK was built
         run: |
           ls -la android/app/build/outputs/apk/release/
-          
+          echo "APK size: $(du -h android/app/build/outputs/apk/release/app-release.apk)"
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: sa-east-1
+
       - name: Upload APK to S3
         run: |
           aws s3 cp \
             android/app/build/outputs/apk/release/app-release.apk \
             s3://rodrigo-apk-store/builds/taskmanager-v${{ github.run_number }}.apk
+          echo "APK uploaded to S3 as: taskmanager-v${{ github.run_number }}.apk"
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
