@@ -1,10 +1,10 @@
 # TaskManager - React Native App
 
-Um aplicativo de gerenciamento de tarefas desenvolvido em React Native com TypeScript, seguindo princípios de arquitetura escalável e boas práticas de desenvolvimento.
+Um aplicativo de gerenciamento de tarefas desenvolvido em React Native com TypeScript para o desafio técnico da Capitani Grouṕ, seguindo princípios de arquitetura escalável e boas práticas de desenvolvimento.
 
 ## 🎯 Visão Geral
 
-O TaskManager é uma aplicação móvel que permite aos usuários criar, gerenciar e acompanhar suas tarefas de forma eficiente. O projeto foi estruturado com foco em escalabilidade, manutenibilidade e qualidade de código.
+O TaskManager é uma aplicação móvel que permite ao usuário criar, gerenciar e acompanhar suas tarefas de forma eficiente. O projeto foi estruturado com foco em escalabilidade, manutenibilidade e qualidade de código.
 
 ## 🏗️ Decisões Arquiteturais
 
@@ -24,9 +24,9 @@ A escolha das tecnologias e configurações foi baseada em requisitos específic
 - **Integração**: Configurado com Husky para verificação pré-commit
 
 #### **Jest + Testing Library**
-- **Cobertura**: Testes unitários abrangentes (76/76 testes passando)
+- **Cobertura**: Testes unitários abrangentes
 - **Confiança**: Refatoração segura com testes automatizados
-- **Documentação**: Testes servem como documentação viva do comportamento
+- **Documentação**: Testes servem como documentação do comportamento
 - **Qualidade**: Reduz regressões e bugs em produção
 
 #### **Maestro E2E Testing**
@@ -39,7 +39,7 @@ A escolha das tecnologias e configurações foi baseada em requisitos específic
 
 ### Estruturando para Escalabilidade: Uma Abordagem Arquitetural Híbrida
 
-À medida que as aplicações crescem, uma estrutura de pastas simples como `components` e `screens` torna-se incontrolável, levando a um acoplamento indesejado e dificuldade de manutenção. Para evitar isso, foi adotada uma **arquitetura híbrida** que combina três padrões poderosos:
+À medida que uma aplicação cresce, uma estrutura de pastas simples como `components` e `screens` torna-se muito dificil de controlar, levando a um acoplamento indesejado e dificuldade de manutenção. Para evitar isso, foi adotada uma **arquitetura híbrida** que combina três padrões poderosos:
 
 #### **1. Arquitetura Baseada em Funcionalidades (Feature-Based)**
 O código é organizado por **domínio de negócio** (por exemplo, `tasks`, `auth`) em vez de por tipo técnico. Esta é a principal estratégia organizacional, promovendo:
@@ -118,10 +118,53 @@ Organismos (Organisms)
 └── TaskScreen       # Tela de tarefas (AddTaskForm + TaskList)
 ```
 
+## 🔄 CI/CD Pipeline
+
+O projeto implementa um pipeline de CI/CD robusto usando GitHub Actions, garantindo qualidade e automação em todos os estágios de desenvolvimento:
+
+### Pipeline de Qualidade
+```mermaid
+graph LR
+    A[Push/PR] --> B[Lint & Format]
+    B --> C[Type Check]
+    C --> D[Unit Tests]
+    D --> E[Coverage Report]
+    E --> F[E2E Tests]
+    F --> G[Build APK]
+    G --> H[Deploy S3]
+    F --> F[Publish on Internal Store]
+```
+
+### Etapas do Pipeline
+
+#### **1. Validação (validate)**
+- **Lint & Format**: Verificação de padrões de código com ESLint/Prettier
+- **Type Check**: Validação rigorosa de tipos TypeScript
+- **Unit Tests**: Execução completa da suíte de testes com cobertura
+- **Coverage Report**: Geração e upload de relatório de cobertura
+
+#### **2. Testes E2E (e2e-maestro)**
+- **Maestro Tests**: Execução automatizada de testes end-to-end
+- **Validação Funcional**: Verificação de fluxos críticos do usuário
+- **Report Upload**: Armazenamento de relatórios de teste
+
+#### **3. Build Android (build-android)**
+- **Environment Setup**: Configuração de Node.js, Java e Android SDK
+- **Keystore Security**: Download seguro de keystore via AWS S3
+- **Bundle Generation**: Criação otimizada do bundle JavaScript
+- **APK Build**: Compilação de APK release assinado
+- **Artifact Management**: Upload para S3 e GitHub Artifacts
+
+### Recursos de Segurança
+- **Secrets Management**: Credenciais seguras via GitHub Secrets
+- **AWS Integration**: Upload automatizado para S3
+- **Versioning**: APKs versionados por número de build
+- **Retention Policy**: Artifacts mantidos por 30 dias
+
 ## 🚀 Como Executar
 
 ### Pré-requisitos
-- Node.js (v18+)
+- Node.js (v20+)
 - React Native CLI
 - Android Studio / Xcode
 - Maestro CLI (para testes E2E)
@@ -133,7 +176,7 @@ git clone https://github.com/narradorww/TaskManager.git
 cd TaskManager
 
 # Instalar dependências
-npm install
+yarn install
 
 # iOS (macOS apenas)
 cd ios && pod install && cd ..
@@ -145,13 +188,13 @@ cd ios && pod install && cd ..
 ### Executar o Projeto
 ```bash
 # Iniciar Metro bundler
-npm start
+yarn start
 
 # Android
-npm run android
+yarn run android
 
 # iOS
-npm run ios
+yarn run ios
 ```
 
 ## 🧪 Testes
@@ -159,13 +202,13 @@ npm run ios
 ### Testes Unitários
 ```bash
 # Executar todos os testes
-npm test
+yarn test
 
 # Executar com watch mode
-npm test -- --watch
+yarn test -- --watch
 
 # Executar com coverage
-npm test -- --coverage
+yarn test -- --coverage
 ```
 
 ### Testes E2E (Maestro)
@@ -176,7 +219,7 @@ Este projeto utiliza o [Maestro](https://maestro.mobile.dev/) para testes end-to
 
 ```bash
 # Executar o teste E2E funcional
-npm run test:e2e
+yarn run test:e2e
 # ou diretamente
 maestro test maestro/test.yaml
 ```
@@ -185,18 +228,18 @@ maestro test maestro/test.yaml
 - Certifique-se de que o app está compilado com as últimas mudanças.
 - Use sempre seletores de texto nos testes E2E.
 - Se o teste falhar, rode novamente após recompilar o app.
-- Para mais dicas, consulte a seção de troubleshooting abaixo.
+
 
 ### Qualidade de Código
 ```bash
 # Linting
-npm run lint
+yarn run lint
 
 # Formatação
-npm run format
+yarn run format
 
 # Verificar tipos TypeScript
-npm run type-check
+yarn run type-check
 ```
 
 ## 📋 Funcionalidades
@@ -212,12 +255,13 @@ npm run type-check
 - [x] Interface responsiva e acessível
 
 ### 🔄 Próximas Funcionalidades
-- [ ] Categorização de tarefas
+- [ ] Categorização de tarefas (mukt-status)
 - [ ] Filtros e busca
 - [ ] Notificações
 - [ ] Sincronização com backend
 - [ ] Temas claro/escuro
 - [ ] Animações e transições
+
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -227,7 +271,7 @@ npm run type-check
 - **React Navigation** - Navegação
 
 ### Estado e Dados
-- **React Context** - Gerenciamento de estado
+- **Context API** - Gerenciamento de estado
 - **AsyncStorage** - Persistência local
 
 ### Qualidade e Testes
@@ -237,16 +281,19 @@ npm run type-check
 - **ESLint** - Linting
 - **Prettier** - Formatação
 
-### Desenvolvimento
+### DevOps & CI/CD
+- **GitHub Actions** - Pipeline de CI/CD
+- **AWS S3** - Armazenamento de artifacts
 - **Husky** - Git hooks
 - **Commitlint** - Padronização de commits
 
 ## 📈 Métricas de Qualidade
 
-- **Cobertura de Testes**: 76/76 testes passando (100%)
+- **Cobertura de Testes**: 77/77 testes passando (100%)
 - **Linting**: Zero erros de ESLint
 - **TypeScript**: Verificação de tipos rigorosa
 - **E2E**: Testes automatizados funcionais
+- **CI/CD**: Pipeline automatizado com 3 etapas de validação
 
 ## 🤝 Contribuição
 
@@ -254,7 +301,7 @@ Para contribuir, siga as diretrizes detalhadas em [CONTRIBUTING.md](CONTRIBUTING
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença MIT e foi criado como um Desafio de Teste. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## 👥 Equipe
 
